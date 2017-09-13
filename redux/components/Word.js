@@ -9,25 +9,36 @@ import {connect} from 'react-redux';
             type: 'TOGGLE_MEMORIZED',
             id: this.props.myWord.id,
         });
-    }
+    };
+
+    showWord(){
+        this.props.dispatch({
+            type: 'TOGGLE_SHOW',
+            id: this.props.myWord.id
+        });
+    };
 
     render(){
 
-        const{en, vn, memorized} = this.props.myWord; 
+        const{en, vn, memorized, isShow} = this.props.myWord; 
         const textDecorationLine = memorized ? 'line-through' : 'none';
         const rememberedButtonText = memorized ? 'forgot' : 'remembered';
-
+        const meaning = isShow ? vn : '--------';
         return(
             <View style={styles.container}>
                 <Text style={{color:'white',textDecorationLine}}>{en}</Text>
-                <Text style={styles.text}>{vn}</Text>  
+                <Text style={styles.text}>{meaning}</Text>  
                 <View style={styles.controller}>
                     <TouchableOpacity 
                     style={styles.button} 
-                    onPress ={this.memorizedWord.bind(this)}> 
+                    onPress ={()=>{this.memorizedWord()}}
+                    > 
                         <Text>{rememberedButtonText}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity 
+                    style={styles.button}
+                    onPress ={()=>{this.showWord()}}
+                    >
                         <Text>show</Text>
                     </TouchableOpacity>
                 </View>   

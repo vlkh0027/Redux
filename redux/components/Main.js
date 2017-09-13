@@ -3,6 +3,9 @@ import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import Word from './Word';
 import Filter from './Filter';
+import Header from './Header';
+import Form from './Form';
+
  class Main extends Component{
 
     getWordList(){
@@ -14,9 +17,12 @@ import Filter from './Filter';
     }
 
     render(){
+        const them = this.props.myIsAdding ? <Form/> : null;
         return(
             <View style={{backgroundColor:'#B1A5D8', flex:1, alignSelf:'stretch', justifyContent:'center'}}>
+                <Header/>
                 <View style={{flex:9}}> 
+                    {them}
                     <FlatList
                         data={this.getWordList()}
                         renderItem={({item}) => <Word myWord ={item}/>}  
@@ -34,7 +40,7 @@ function mapStateToProps(state) {
     return {
          myFilter: state.filterStatus,
          myWords: state.arrWords,
-    
+         myIsAdding: state.isAdding,
     };
 
 }

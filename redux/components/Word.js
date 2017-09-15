@@ -1,26 +1,14 @@
 import React,{Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
+import {memorizedWordAction, showWordAction} from './../Redux/actionCreators';
 
  class Word extends Component{
      
-    memorizedWord(){
-        this.props.dispatch({
-            type: 'TOGGLE_MEMORIZED',
-            id: this.props.myWord.id,
-        });
-    };
-
-    showWord(){
-        this.props.dispatch({
-            type: 'TOGGLE_SHOW',
-            id: this.props.myWord.id
-        });
-    };
 
     render(){
 
-        const{en, vn, memorized, isShow} = this.props.myWord; 
+        const{id,en, vn, memorized, isShow} = this.props.myWord; 
         const textDecorationLine = memorized ? 'line-through' : 'none';
         const rememberedButtonText = memorized ? 'forgot' : 'remembered';
         const meaning = isShow ? vn : '--------';
@@ -31,13 +19,13 @@ import {connect} from 'react-redux';
                 <View style={styles.controller}>
                     <TouchableOpacity 
                     style={styles.button} 
-                    onPress ={()=>{this.memorizedWord()}}
+                    onPress ={()=>{this.props.memorizedWordAction(id)}}
                     > 
                         <Text>{rememberedButtonText}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
                     style={styles.button}
-                    onPress ={()=>{this.showWord()}}
+                    onPress ={()=>{this.props.showWordAction(id)}}
                     >
                         <Text>show</Text>
                     </TouchableOpacity>
@@ -69,4 +57,4 @@ const styles=StyleSheet.create({
     }
 
 })
-export default connect()(Word);
+export default connect(null, {memorizedWordAction,showWordAction})(Word);

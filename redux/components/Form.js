@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
+import {toggleIsAdding, addWord} from './../Redux/actionCreators';
  class Form extends Component{
 
     constructor(props){
@@ -13,15 +14,8 @@ import {connect} from 'react-redux';
 
     onAdd(){
         const {en, vn} = this.state;
-        this.props.dispatch({
-            type: 'ADD_WORD',
-            en,
-            vn,
-        });
-        this.props.dispatch({
-            type: 'TOGGLE_IS_ADDING',
-            
-        });
+        this.props.toggleIsAdding();
+        this.props.addWord();
 
     }
 
@@ -62,4 +56,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default connect()(Form);
+export default connect(null,{toggleIsAdding, addWord})(Form);

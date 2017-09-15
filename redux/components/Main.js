@@ -28,9 +28,9 @@ import Form from './Form';
                         renderItem={({item}) => <Word myWord ={item}/>}  
                         keyExtractor={item => item.id}
                     >
-                </FlatList> 
+                    </FlatList> 
                 </View>
-                 <Filter/>
+                <Filter/>
             </View>
         );
     }
